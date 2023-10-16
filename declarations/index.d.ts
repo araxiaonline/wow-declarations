@@ -10,7 +10,6 @@ import "./activity";
 import "./addon";
 import "./archaeology";
 import "./arena";
-import "./atlas";
 // B
 import "./bank";
 import "./barber";
@@ -35,32 +34,22 @@ import "./cursor";
 // D
 import "./debug";
 // E
-import "./encounterJournal";
-import "./enums";
 import "./event";
 // G
 import "./gossip";
 import "./groups";
 // I
 import "./inventory";
-import "./item";
-import "./itemLocation";
 // Q
 import "./quest";
 // S
 import "./security";
 import "./spell";
 import "./system";
-// U
 import "./ui/tooltip";
+// U
 import "./ui/ui";
 import "./unit";
-
-// V
-import "./vector";
-
-// C_* classes
-import "./classes";
 
 export = WoWAPI;
 export as namespace WoWAPI;

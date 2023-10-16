@@ -2,6 +2,8 @@
 
 /// <reference path="../global.d.ts" />
 
+import { ItemLink } from "@wartoshika/wow-declarations";
+
 declare namespace WoWAPI {
 
     type HorizontalAlign = "LEFT" | "CENTER" | "RIGHT";
@@ -29,6 +31,9 @@ declare namespace WoWAPI {
         type OnMouseWheel = "OnMouseWheel";
         type OnValueChanged = "OnValueChanged";
         type OnTextChanged = "OnTextChanged";
+        type OnDragStart = "OnDragStart"; 
+        type OnDragStop = "OnDragStop"; 
+        type OnHyperlinkClick = "OnHyperlinkClicked"
 
         type PlayerLogin = "PLAYER_LOGIN";
         type PlayerLogout = "PLAYER_LOGOUT";
@@ -46,7 +51,7 @@ declare namespace WoWAPI {
 
         type OnAny = OnEvent | OnLoad | OnUpdate | OnClick | OnEnter |
             OnLeave | OnHide | OnShow | OnMouseDown | OnMouseUp | OnMouseWheel |
-            OnValueChanged | OnTextChanged;
+            OnValueChanged | OnTextChanged | OnDragStart | OnDragStop | OnHyperlinkClick;
     }
 
     type UIDropdownInfo = {
@@ -467,6 +472,9 @@ declare namespace WoWAPI {
         SetScript(event: "OnUpdate", handler: (frame: T, elapsed: number) => void): void;
         SetScript(event: "OnValueChanged", handler: (frame: T, changed: any) => void): void;
         SetScript(event: "OnTextChanged", handler: (frame: T, isUserInput: boolean) => void): void;
+        SetScript(event: "OnDragStart", handler: (frame: T, button: MouseButton) => void): void; 
+        SetScript(event: "OnDragStop", handler: (frame: T, button: MouseButton) => void): void; 
+        SetScript(event: "OnHyperlinkClick", handler: (frame: T, link: ItemLink, text: string, button: MouseButton, region: Region, left: number) => void): void;
         SetScript(event: Event.OnAny, handler?: (frame: T, ...args: any[]) => void): void;
     }
 
@@ -589,6 +597,12 @@ declare namespace WoWAPI {
         RegisterEvent(eventName: Event): void;
 
         /**
+         * Register drag button event for frame
+         * @param button 
+         */
+        RegisterForDrag(button: MouseButton): void; 
+
+        /**
          * Sets the Frame Strata of the frame.
          *
          * @param frameStrata The Frame Strata the frame will be put in
@@ -609,6 +623,13 @@ declare namespace WoWAPI {
          * @param value the value of the attribute
          */
         SetAttribute(name: string, value: any): void;
+
+        /**
+         * Enabled HyperLinks in Frame
+         * @param enabled 
+         * @see https://wowpedia.fandom.com/wiki/API_Frame_SetHyperlinksEnabled
+         */
+        SetHyperlinksEnabled(enabled: boolean): void; 
 
         /**
          * Unregisters the widget from receiving OnEvent notifications for a particular event.
@@ -649,13 +670,13 @@ declare namespace WoWAPI {
          * Starts moving the frame-inheriting widget as the user moves the mouse cursor
          * @see https://wow.gamepedia.com/API_Frame_StartMoving
          */
-        StartMoving(): void;
+        StartMoving(this:void): void;
 
         /**
          * Stops moving or resizing the widget
          * @see https://wow.gamepedia.com/API_Frame_StopMovingOrSizing
          */
-        StopMovingOrSizing(): void;
+        StopMovingOrSizing(this:void): void;
 
         /**
          * Sets the Frame Level of the frame, within its Frame Strata
@@ -881,6 +902,7 @@ declare namespace WoWAPI {
 /**
  * global lua namespace
  */
+declare const _G: { [prop: string]: any };
 declare const InterfaceOptionsFramePanelContainer: WoWAPI.Region;
 declare const UIParent: WoWAPI.Frame;
 
@@ -960,3 +982,12 @@ declare function CreateFrame(frameType: "Button", frameName?: string, parentFram
  * @param panel the panel to add
  */
 declare function InterfaceOptions_AddCategory(panel: WoWAPI.FrameInterfaceCategory): void;
+
+/**
+ * Displays a Hyperlink of an item 
+ * @param frame 
+ * @param link 
+ * @param text 
+ * @param button 
+ */
+declare function ChatFrame_OnHyperlinkShow(frame: WoWAPI.Frame, link: ItemLink, text: string, button: MouseButton): void; 
