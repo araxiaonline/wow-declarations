@@ -21,7 +21,7 @@
   ],
   "license": "MIT",
   "main": "declarations/index.d.ts",
-  "name": "@araxiaonline/wow-wothlk-declarations",
+  "name": "@araxiaonline/wow-wotlk-declarations",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git push github --follow-tags",
