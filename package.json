@@ -1,18 +1,27 @@
 {
   "author": {
-    "name": "wartoshika",
-    "email": "dev@qhun.de"
+    "name": "ben-of-codecraft",
+    "url": "https://github.com/orgs/araxiaonline/repositories"
   },
-  "description": "Typescript declarations for the current live World of Warcraft LUA API",
+  "contributors": [
+    {
+      "name": "wartoshika",
+      "email": "dev@qhun.de"
+    }
+  ],
+  "description": "Typescript declarations for World of Warcraft Wrath of Lich Link LUA API, in development",
   "keywords": [
     "wow",
-    "lua",
-    "wartoshika",
-    "qhun"
+    "wothlk",
+    "lua", 
+    "azerothcore",
+    "araxiaonline",
+    "typescript",
+    "typescripttolua"   
   ],
   "license": "MIT",
   "main": "declarations/index.d.ts",
-  "name": "@wartoshika/wow-declarations",
+  "name": "@araxiaonline/wow-wothlk-declarations",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git push github --follow-tags",
@@ -20,7 +29,7 @@
     "lint:fix": "tslint -c tslint.json --fix declarations/**/*.d.ts"
   },
   "types": "declarations/index.d.ts",
-  "version": "9.0.5-release.2",
+  "version": "3.3.5-a.1",
   "devDependencies": {
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
