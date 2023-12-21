@@ -1,13 +1,12 @@
-# In development Typescript declarations for AddOn / AIO devleopment for WoW Wrath of the Lich King 3.3.5a client
+[![npm version](https://badge.fury.io/js/@araxiaonline%2Fwow-wotlk-declarations.svg)](https://badge.fury.io/js/@araxiaonline%2Fwow-wotlk-declarations)
+# World of Warcraft WOTLK for AddOn & AIO Development
 
 ## Summary
-
-**This is in development** and is specifically focused on providing accurate TypeScript definitions based on the WoW API at the time of Wrath of Lich King. 
+**This is in beta** and is specifically focused on providing accurate TypeScript definitions based on the WoW API at the time of Wrath of Lich King. 
 
 This maintained by the Araxia team and dependendy systems: 
 
  - [ETS Modules](https://github.com/araxiaonline/wow-eluna-ts-module) _a content module creator specifically targets for servers running Eluna API, like Azeroth Core or Trinity Core_
-
 
 **Supported transpilers for LUA targets**:
 
