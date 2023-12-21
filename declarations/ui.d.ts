@@ -2,7 +2,7 @@
 
 /// <reference path="../global.d.ts" />
 
-import { ItemLink } from "@wartoshika/wow-declarations";
+// import { ItemLink } from "@wartoshika/wow-declarations";
 
 declare namespace WoWAPI {
 
@@ -230,11 +230,11 @@ declare namespace WoWAPI {
         /**
          * Returns information about the anchor point for a region.
          *
-         * @see https://wow.gamepedia.com/API_Region_GetPoint
-         * @tupleReturn
+         * @see https://wow.gamepedia.com/API_Region_GetPoint         
          * @returns point, relativeTo, relativePoint, xOfs, yOfs
+         * @tupleReturn
          */
-        GetPoint(index?: number): [Point, Region, Point, number, number];
+        GetPoint(index?: number): LuaMultiReturn<[Point, Region, Point, number, number]>;
 
         /**
          * Set the object's alpha (opacity) value.
@@ -540,7 +540,7 @@ declare namespace WoWAPI {
          * the texture does not inherit any properties.
          * @param subLayer The order in which the texture should be drawn, within the same layer.
          */
-        CreateTexture(name?: string, layer?: Layer, inheritsFrom?: string, subLayer?: number): Texture;
+        CreateTexture(name?: string, layer?: Layer, inheritsFrom?: string | Frame, subLayer?: number): Texture;
 
         /**
          * Allows this frame to receive keyboard input via OnKeyUp and OnKeyDown script handlers.

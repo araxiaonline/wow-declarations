@@ -45,10 +45,11 @@ import "./quest";
 // S
 import "./security";
 import "./spell";
+import "./sound"; 
 import "./system";
-import "./ui/tooltip";
+import "./tooltip";
 // U
-import "./ui/ui";
+import "./ui";
 import "./unit";
 
 export = WoWAPI;
