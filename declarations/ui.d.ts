@@ -80,11 +80,26 @@ declare namespace WoWAPI {
         GetName(): string;
 
         /**
+         * Set the name of the object. 
+         * @param name the name to set
+         */
+        SetName(name: string); 
+
+        /**
          * Determine if this object is of the specified type, or a subclass of that type.
          *
          * @param type the type to check for
          */
         IsObjectType(type: FrameType): boolean;
+    }
+
+    type ModelLight = {
+        omnidirection?: boolean | false;
+        point: [number, number, number];
+        ambientIntensity?: number | 0;
+        ambientColor?: [number, number, number] | [0, 0, 0];
+        diffuseIntensity?: number | 0;
+        diffuseColor?: [number, number, number] | [0, 0, 0];
     }
 
     /**
@@ -101,6 +116,154 @@ declare namespace WoWAPI {
          */
         IsForbidden(): boolean;
     }
+
+    interface Model extends UIObject {
+        /**
+         * Advances time in the model's animation sequence by the specified amount.
+         */
+        AdvanceTime(): void;
+
+        /**
+         * Returns the direction the model is facing
+         */
+        GetFacing(): number;
+
+        /**
+         * Clears the current model.
+         */
+        ClearModel(): void;
+
+        /**
+         * Return the model lighting information
+         */
+        GetLight(): LuaMultiReturn<[boolean, ModelLight]>
+
+        /**
+         * Returns the model's file path.
+         */
+        GetModel(): string;
+
+        /**
+         * Returns the file ID associated with the currently displayed model
+         */
+        GetModelFileID(): number;
+
+        /**
+         * Returns the model's scale.
+         */
+        GetModelScale(): number;
+
+        /**
+         * Get the model Alpha
+         */
+        GetModelAlpha(): number;
+
+        /**
+         * Returns the position of the model in the frame.
+         */
+        GetModelPosition(): LuaMultiReturn<[number, number, number]>;
+
+        /**
+         * Set the display info of the model directly
+         */
+        SetDisplayInfo(displayId: number): void;
+
+        /**
+         * Sets the models glow
+         * @param glow number
+         */
+        SetGlow(glow: number): void;
+
+        /**
+         * Set the model to a specific asset string .mdx / m2 file path 
+         * ie) SetModel("Character\\NightElf\\Female\\NightElfFemale.mdx")
+         * @param path 
+         */
+        SetModel(path: string, noMip: boolean = false): void;
+
+        /**
+         * Sets the size of the model in the frame.
+         * @param scale 
+         */
+        SetModelScale(scale: number): void;
+
+        /**
+         * Sets the poisition relative to the bottom left corner
+         * @param x 
+         * @param y 
+         * @param z 
+         */
+        SetPosition(x: number, y: number, z: number): void;
+
+        /**
+         * Sets the direction the model is facing
+         * @param facing 
+         */
+        SetFacing(facing: number): void;
+
+        /**
+         * Sets the sequence to be played: 
+         * The selected sequence seems to play only once but for some sequences it is repeated infinitely. Don't know what to think about this =/
+         * You'll probably want to use some third party application to preview the animation sequences available for a certain mesh.
+         */
+        SetSequence(sequence: number): void;
+
+        /**
+         * Enable or disable the model's paricle effects
+         * @param enabled 
+         */
+        SetParticlesEnabled(enabled: boolean): void;
+
+    }
+
+    interface PlayerModel extends Model {
+
+        /**
+         * Can set the model to the unit
+         * @see UnitId
+         */
+        CanSetUnit(unit: UnitId): boolean;
+
+        /**
+         * Get the displayId of the current player model
+         */
+        GetDisplayInfo(): number;
+
+        /**
+         * 
+         */
+        GetDoBlend(): boolean;
+
+        /**
+         * Has Animation to perform on the current model
+         */
+        HasAnimation(anin: number): boolean;
+
+        /**
+         * Refresh the camera
+         */
+        RefreshCamera(): void;
+
+        /**
+         * Refresh Unit display of current target model if changed will update 
+         */
+        RefreshUnit(): void;
+
+        /**
+         * Sets the model to a creature id
+         * @param creatureId 
+         */
+        SetCreature(creatureId: number): void;
+
+        /**
+         * Sets the model to a specific unit
+         */
+        SetUnit(unit: UnitId): void;
+
+    }
+
+    interface ModelFrame extends Model, Frame {};
+    interface PlayerModelFrame extends PlayerModel, ModelFrame {};
 
     /**
      * This is another abstract object type that groups together a number of font related methods that are used by multiple other widget types.
@@ -374,8 +537,9 @@ declare namespace WoWAPI {
         /**
          * Modifies the region of a texture drawn by the Texture widget.
          */
-        SetTextCoord(left: number, right: number, top: number, bottom: number): void;
-        SetTextCoord(ULx: number, ULy: number, LLx: number, LLy: number, URx: number, URy: number, LRx: number, LRy: number): void;
+        SetTexCoord(left: number, right: number, top: number, bottom: number): void;
+        SetTexCoord(ULx: number, ULy: number, LLx: number, LLy: number, URx: number, URy: number, LRx: number, LRy: number): void;
+
 
         /**
          * Changes the texture of a Texture widget.
@@ -388,6 +552,14 @@ declare namespace WoWAPI {
          * @param filterMode Texture filtering mode to use
          */
         SetTexture(file: string | number, horizWrap?: Wrap, vertWrap?: Wrap, filterMode?: FilterMode): void;
+        /**
+         * Uses rgba values to set the texture color.
+         * @param r 
+         * @param b 
+         * @param g 
+         * @param a 
+         */
+        SetTexture(r: number, b: number, g: number, a?: number = 1): void;
 
         /**
          * Changes the color of a texture.
@@ -684,6 +856,14 @@ declare namespace WoWAPI {
          * @see https://wow.gamepedia.com/API_Frame_SetFrameLevel
          */
         SetFrameLevel(level: number): void;
+
+        /**
+         *  Modifies the size of the frame's hit rectangle - the area in which clicks are sent to the frame in question.
+         * @see https://wowwiki-archive.fandom.com/wiki/API_Frame_SetHitRectInsets
+         */
+        SetHitRectInsets(left: number, right: number, top: number, bottom: number): void;
+
+
     }
 
     /**
@@ -905,6 +1085,7 @@ declare namespace WoWAPI {
 declare const _G: { [prop: string]: any };
 declare const InterfaceOptionsFramePanelContainer: WoWAPI.Region;
 declare const UIParent: WoWAPI.Frame;
+declare const CharacterFrame: WoWAPI.Frame;
 
 /**
  * ##################################
@@ -913,6 +1094,25 @@ declare const UIParent: WoWAPI.Frame;
  */
 
 // global frame related functions
+/**
+ * Shows a frame in the UIParent
+ * @param frame 
+ * @param force 
+ */
+declare function ShowUIPanel(frame: WoWAPI.Frame, force: boolean): void;
+
+/**
+ * Hides a frame in the UIParent
+ * @param frame 
+ * @param skipSetPoint 
+ */
+declare function HideUIPanel(frame: WoWAPI.Frame, skipSetPoint: boolean): void;
+
+/**
+ * 
+ * @param key looks up a panel by name
+ */
+declare function GetUIPanel(key: string): WoWAPI.Frame;
 
 /**
  * set the width for the given dropdown frame
@@ -951,9 +1151,25 @@ declare function UIDropDownMenu_CreateInfo(): WoWAPI.UIDropdownInfo;
 declare function UIDropDownMenu_AddButton(info: WoWAPI.UIDropdownInfo): void;
 
 /**
+ * Paint a Texture object with the specified UnitId's portrait.
+ * @param texture 
+ * @param unitId 
+ * @see https://wowwiki-archive.fandom.com/wiki/API_SetPortraitTexture
+ */
+declare function SetPortraitTexture(texture: WoWAPI.Texture, unitId: WoWAPI.UnitId); 
+
+/**
+ * Raise the frame level of the given frame
+ * @param frame 
+ */
+declare function RaiseFrameLevel(frame: WoWAPI.Frame): void;
+
+/**
  * comma separated list of enabled flags
  */
 declare type FontInstanceFlags = "OUTLINE" | "MONOCHROME" | "THICKOUTLINE";
+
+
 
 /**
  * Creates a new UI frame.
@@ -974,6 +1190,8 @@ declare function CreateFrame(frameType: "Frame", frameName?: string, parentFrame
 declare function CreateFrame(frameType: "Slider", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.Slider;
 declare function CreateFrame(frameType: "EditBox", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.EditBox;
 declare function CreateFrame(frameType: "Button", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.Button;
+declare function CreateFrame(frameType: "Model", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.ModelFrame;
+declare function CreateFrame(frameType: "PlayerModel", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.PlayerModelFrame;
 
 /**
  * Adds a configuration panel (with the fields described in #Panel fields below set) to the category list.
@@ -991,3 +1209,18 @@ declare function InterfaceOptions_AddCategory(panel: WoWAPI.FrameInterfaceCatego
  * @param button 
  */
 declare function ChatFrame_OnHyperlinkShow(frame: WoWAPI.Frame, link: ItemLink, text: string, button: MouseButton): void; 
+
+/**
+ * ITEM BUTTON FUNCTIONS
+ */
+declare function SetItemButtonTexture(itemButton: WoWAPI.Button, texture: WoWAPI.TexturePath | string): void;
+
+declare function SetItemButtonCount(itemButton: WoWAPI.Button, count: number): void;
+
+declare function SetItemButtonStock(itemButton: WoWAPI.Button, stock: number): void;
+
+declare function SetItemButtonTextureVertexColor(itemButton: WoWAPI.Button, r: number, g: number, b: number): void;
+
+declare function SetItemButtonDesaturated(itemButton: WoWAPI.Button, desaturated: boolean, r: number, g: number, b: number): void;
+
+declare function HandleModifiedItemClick(link: string): boolean;

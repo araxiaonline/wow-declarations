@@ -103,3 +103,10 @@ declare function UnitHealthMax(unitId: WoWAPI.UnitId): number;
  * @see https://wow.gamepedia.com/API_UnitInParty
  */
 declare function UnitInParty(unitId: WoWAPI.UnitId): boolean;
+
+/**
+ * Returns the units race 
+ * @param unitId 
+ * @see https://wowwiki-archive.fandom.com/wiki/API_UnitRace
+ */
+declare function UnitRace(unitId: WoWAPI.UnitId): string; 
