@@ -36,7 +36,13 @@ Add the wow-wotlk-declarations path to your `tsconfig.json` compiler options lik
 ```
 
 ## Changes
-### Version **Dec 21 2023 - v3.3.4-3**
+### Version **Feb 3 2024 0 v3.3.5-4**
+- Added more UI Global Functions that were missing for frames
+- Add Character Model Frames
+- Added Model 
+- Fixed some Unit returns to be LuaMulti
+
+### Version **Dec 21 2023 - v3.3.5-3**
 - Added Sound WoW Api methods
 - Converted more methods from @noself to LuaMulti return types. 
 
