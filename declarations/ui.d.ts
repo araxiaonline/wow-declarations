@@ -1,4 +1,4 @@
-/** @noSelfInFile */
+/** @noSelfInFile **/
 
 /// <reference path="../global.d.ts" />
 
@@ -8,7 +8,7 @@ declare namespace WoWAPI {
 
     type HorizontalAlign = "LEFT" | "CENTER" | "RIGHT";
     type VerticalAlign = "TOP" | "MIDDLE" | "BUTTOM";
-    type Point = "TOP" | "RIGHT" | "BOTTOM" | "LEFT" | "TOPRIGHT" | "TOPLEFT" | "BOTTOMLEFT" | "BOTTOMRIGHT" | "CENTER";
+    type Point = "TOP" | "RIGHT" | "BOTTOM" | "LEFT" | "TOPRIGHT" | "TOPLEFT" | "BOTTOMLEFT" | "BOTTOMRIGHT" | "CENTER" | "ANCHOR_RIGHT" | "ANCHOR_LEFT" | "ANCHOR_CURSOR" | "ANCHOR_PRESERVE" | "ANCHOR_NONE";
     type Layer = "BACKGROUND" | "ARTWORK" | "OVERLAY";
     type FrameStrata = "WORLD" | "BACKGROUND" | "LOW" | "MEDIUM" | "HIGH" | "DIALOG" | "FULLSCREEN" | "FULLSCREEN_DIALOG" | "TOOLTIP";
     type Wrap = "CLAMP" | "CLAMPTOBLACK" | "CLAMPTOBLACKADDITIVE" | "CLAMPTOSHITE" | "REPEAT" | true | "MIRROR";
@@ -742,6 +742,16 @@ declare namespace WoWAPI {
         GetChildren(): [...UIObject[]];
 
         /**
+         * Get the ID set on the frame
+         */
+        GetID(): number;
+
+        /**
+         * Returns the Frame Level the frame is in.
+         */
+        GetFrameLevel(): number;
+
+        /**
          * Returns the Frame Strata the frame is in.
          */
         GetFrameStrata(): FrameStrata;
@@ -1184,9 +1194,11 @@ declare type FontInstanceFlags = "OUTLINE" | "MONOCHROME" | "THICKOUTLINE";
  * @param id ID to assign to the frame. See API Frame SetID
  */
 declare function CreateFrame(
-  frameType: WoWAPI.FrameType, frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number,
+  this: void, frameType: WoWAPI.FrameType, frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number,
 ): WoWAPI.UIObject;
+
 declare function CreateFrame(frameType: "Frame", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.Frame;
+declare function CreateFrame(frameType: "GameTooltip", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.GameTooltip;
 declare function CreateFrame(frameType: "Slider", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.Slider;
 declare function CreateFrame(frameType: "EditBox", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.EditBox;
 declare function CreateFrame(frameType: "Button", frameName?: string, parentFrame?: WoWAPI.UIObject, inheritsFrame?: string, id?: number): WoWAPI.Button;
