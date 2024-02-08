@@ -208,11 +208,11 @@ declare namespace WoWAPI {
          */
         SetSequence(sequence: number): void;
 
-        /**
-         * Enable or disable the model's paricle effects
-         * @param enabled 
-         */
-        SetParticlesEnabled(enabled: boolean): void;
+        SetCamera(type: number); 
+
+        SetAlpha(alpha: number): void;
+
+
 
     }
 

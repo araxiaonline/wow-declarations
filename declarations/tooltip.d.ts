@@ -76,7 +76,7 @@ declare namespace WoWAPI {
          * @see http://wowwiki.wikia.com/wiki/API_GameTooltip_GetItem
          * @tupleReturn
          */
-        GetItem(): [string, ItemLink];
+        GetItem(): LuaMultiReturn<[string, ItemLink]>;
 
         /**
          * unknown
@@ -106,6 +106,21 @@ declare namespace WoWAPI {
          * @tupleReturn
          */
         GetUnit(): [string, UnitId];
+
+        /**
+         * Returns name of the tooltip frame
+         */
+        GetName(); 
+
+        /**
+         * Returns the ID of the tooltip
+         */
+        GetID(); 
+
+        /**
+         * Hides the tooltip frame
+         */
+        Hide(): void
 
         /**
          * unknown
@@ -219,7 +234,7 @@ declare namespace WoWAPI {
          * @see http://wowwiki.wikia.com/wiki/API_GameTooltip_SetInventoryItem
          * @tupleReturn
          */
-        SetInventoryItem(unit: UnitId, slot: number, nameOnly?: Unknown): [boolean, boolean, number];
+        SetInventoryItem(unit: UnitId, slot: number, nameOnly?: Unknown): LuaMultiReturn<[boolean, boolean, number]>;
 
         /**
          * Shows an ItemKey in a tooltip.
