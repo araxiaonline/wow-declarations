@@ -15,7 +15,7 @@ declare namespace WoWAPI {
     type MouseButton = "LeftButton" | "RightButton" | "Middle" | "Button4" | "Button5";
     type FilterMode = "LINEAR" | "BILINEAR" | "TRILINEAR" | "NEAREST";
     type MouseWheelDelta = 1 | -1;
-    type Align = "HORIZONTAL" | "VERTICAL";
+    type Align = "HORIZONTAL" | "VERTICAL";    
 
     namespace Event {
         type OnEvent = "OnEvent";
@@ -109,7 +109,7 @@ declare namespace WoWAPI {
         /**
          * get the parent UIObject
          */
-        GetParent(): UIObject;
+        GetParent(): T extends UIObject ? T : UIObject;
 
         /**
          * Returns whether insecure interaction with a widget is forbidden.
@@ -750,6 +750,8 @@ declare namespace WoWAPI {
          * Returns the Frame Level the frame is in.
          */
         GetFrameLevel(): number;
+
+        GetScript(event: Event.OnAny): ((frame: Frame, ...args: any[]) => void) | undefined;
 
         /**
          * Returns the Frame Strata the frame is in.
