@@ -751,6 +751,9 @@ declare namespace WoWAPI {
          */
         GetFrameLevel(): number;
 
+        /**
+         * Gets the assigned script for a specific event.        
+         */
         GetScript(event: Event.OnAny): ((frame: Frame, ...args: any[]) => void) | undefined;
 
         /**
@@ -1238,3 +1241,8 @@ declare function SetItemButtonTextureVertexColor(itemButton: WoWAPI.Button, r: n
 declare function SetItemButtonDesaturated(itemButton: WoWAPI.Button, desaturated: boolean, r: number, g: number, b: number): void;
 
 declare function HandleModifiedItemClick(link: string): boolean;
+
+type ModifiedClickEvent = "SELFCAST" | "AUTOLOOTTOGGLE" | "STICKYCAMERA" | "CHATLINK" | "DRESSUP" | "SOCKETITEM" | "SPLITSTACK" | "PICKUPACTION" | "COMPAREITEMS" | "OPENALLBAGS" | "QUESTWATCHTOGGLE";
+
+declare function IsModifiedClick(modifier: ModifiedClickEvent): boolean;
+
