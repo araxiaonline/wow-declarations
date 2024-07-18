@@ -36,6 +36,14 @@ Add the wow-wotlk-declarations path to your `tsconfig.json` compiler options lik
 ```
 
 ## Changes
+### Version **Jul 17 2024** v 3.3.5-9
+- Added GetRegions to Frames
+- Added RegionType
+
+### Version **Feb 5 2024** v 3.3.5-5 
+- Added GetID and GetName to Tooltip
+- Added MultiLua to Cursor object 
+
 ### Version **Feb 3 2024 0 v3.3.5-4**
 - Added more UI Global Functions that were missing for frames
 - Add Character Model Frames
