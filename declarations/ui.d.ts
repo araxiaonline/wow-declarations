@@ -66,13 +66,15 @@ declare namespace WoWAPI {
     type FrameType = "Frame" | "Button" | "Cooldown"
         | "ColorSelect" | "EditBox" | "GameTooltip" | "MessageFrame"
         | "Minimap" | "Model" | "ScrollFrame" | "ScrollingMessageFrame"
-        | "SimpleHTML" | "Slider" | "StatusBar";
+        | "SimpleHTML" | "Slider" | "StatusBar" | "Texture" | "FontString";
+
+    type RegionType = "Region" | "LayeredRegion" | "Texture" | "FontString";
 
     interface Object {
         /**
          * get the type of this object
          */
-        GetObjectType(): FrameType;
+        GetObjectType(): FrameType | RegionType;
 
         /**
          * Return the name of the object.
@@ -90,7 +92,7 @@ declare namespace WoWAPI {
          *
          * @param type the type to check for
          */
-        IsObjectType(type: FrameType): boolean;
+        IsObjectType(type: FrameType | RegionType ): boolean;
     }
 
     type ModelLight = {
@@ -750,6 +752,12 @@ declare namespace WoWAPI {
          * Returns the Frame Level the frame is in.
          */
         GetFrameLevel(): number;
+
+        /**
+         * Get Regions will return all the regions for a frame that are children
+         * @return WoWAPI.Region[]
+         */
+        GetRegions(): Region[];
 
         /**
          * Gets the assigned script for a specific event.        
